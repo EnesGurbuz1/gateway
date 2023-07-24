@@ -8,7 +8,24 @@ export class UsersResolver {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @ResolveField(() => [Project])
-  projects(@Parent() user: User): Project[] {
-    return this.projectsService.forCreator(user.id);
+  async projects(@Parent() user: User): Promise<Project[]> {
+    try {
+      const { id } = user;
+      // Kullanıcının projelerini almak için hizmeti çağırma işlemi
+      const userProjects: Project[] = await this.projectsService.forCreator(id);
+
+      // Hata durumunda uygun işlemler yapma
+      if (!userProjects || userProjects.length === 0) {
+        throw new Error('Kullanıcının projeleri bulunamadı.');
+      }
+
+      return userProjects;
+    } catch (error) {
+      // Hata yönetimi: Hataları uygun bir şekilde ele almak
+      console.error('Proje sorgularken bir hata oluştu:', error);
+      throw new Error(
+        'Proje sorgulanırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
+      );
+    }
   }
 }

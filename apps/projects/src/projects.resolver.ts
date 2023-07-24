@@ -1,8 +1,16 @@
-import { Resolver, Query, Mutation, Args, ResolveField, Parent } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ResolveField,
+  Parent,
+} from '@nestjs/graphql';
 import { ProjectsService } from './projects.service';
 import { Project } from './entities/project.entity';
 import { CreateProjectInput } from './dto/create-project.input';
 import { User } from './entities/user.entity';
+import { UpdateProjectInput } from './dto/update-project.input';
 // import { UpdateProjectInput } from './dto/update-project.input';
 
 @Resolver(() => Project)
@@ -10,7 +18,9 @@ export class ProjectsResolver {
   constructor(private readonly projectsService: ProjectsService) {}
 
   @Mutation(() => Project)
-  createProject(@Args('createProjectInput') createProjectInput: CreateProjectInput) {
+  createProject(
+    @Args('createProjectInput') createProjectInput: CreateProjectInput,
+  ) {
     return this.projectsService.create(createProjectInput);
   }
 
@@ -20,21 +30,25 @@ export class ProjectsResolver {
   }
 
   @Query(() => Project, { name: 'project' })
-  findOne(@Args('id',) id: string) {
+  findOne(@Args('id') id: string) {
     return this.projectsService.findOne(id);
   }
 
-  @ResolveField(() => User)
-  user(@Parent() project: Project): any{
-    return {__typename: 'User', id: project.creator_id};
+  @Mutation(() => Project)
+  async updateProject(
+    @Args('id') id: string,
+    @Args('updateProjectInput') updateProjectInput: UpdateProjectInput,
+  ) {
+    return this.projectsService.updateProject(id, updateProjectInput);
   }
-  // @Mutation(() => Project)
-  // updateProject(@Args('updateProjectInput') updateProjectInput: UpdateProjectInput) {
-  //   return this.projectsService.update(updateProjectInput.id, updateProjectInput);
-  // }
 
-  // @Mutation(() => Project)
-  // removeProject(@Args('id', { type: () => Int }) id: number) {
-  //   return this.projectsService.remove(id);
-  // }
+  @Mutation(() => Project)
+  async deleteProject(@Args('id') id: string) {
+    return this.projectsService.deleteProject(id);
+  }
+
+  @ResolveField(() => User)
+  user(@Parent() project: Project): any {
+    return { __typename: 'User', id: project.creator_id };
+  }
 }

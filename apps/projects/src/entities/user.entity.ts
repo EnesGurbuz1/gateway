@@ -1,15 +1,16 @@
-
 import { ObjectType, Directive, Field, ID } from '@nestjs/graphql';
 import { Project } from './project.entity';
-
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Directive('@key(fields: "id")')
+@Entity()
 export class User {
-   @Field(() => ID)
-    id: string;
+  @PrimaryGeneratedColumn('uuid')
+  @Field(() => ID)
+  id: string;
 
-    @Field(() => [Project])
-    projects: Project[];
-    
+  @Column()
+  @Field(() => [Project])
+  projects: Project[];
 }
