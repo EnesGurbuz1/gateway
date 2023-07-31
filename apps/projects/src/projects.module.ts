@@ -10,6 +10,7 @@ import { Project } from './entities/project.entity';
 
 @Module({
   imports: [
+    
     TypeOrmModule.forRoot({
       type: 'mysql',
     host: 'localhost',
