@@ -1,5 +1,6 @@
 import { TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { Project } from 'apps/projects/src/entities/project.entity';
+import { Task } from 'apps/tasks/src/entities/task.entity';
 import { User } from 'apps/users/src/entities/user.entity';
 
 export const mysqlConfig: TypeOrmModuleOptions = {
@@ -9,7 +10,7 @@ export const mysqlConfig: TypeOrmModuleOptions = {
     username : 'root',
     password : 'Enes2002',
     database : 'basecamp',
-    entities: [Project, User],
+    entities: [Project, User, Task],
     synchronize: true,
 };
 
