@@ -4,6 +4,7 @@ import { UpdateTaskInput } from './dto/update-task.input';
 import { Task } from './entities/task.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class TasksService {
@@ -14,12 +15,11 @@ export class TasksService {
 
   //CREATE
   async create(createTaskInput: CreateTaskInput): Promise<Task> {
-    // Görevin var olup olmadığını kontrol edelim
-    const existingTask = await this.taskRepository.findOne({ where: { id: createTaskInput.id } });
-    if (existingTask) {
-      throw new Error('Aynı ID ile başka bir görev zaten mevcut.');
-    }
-    const newTask = this.taskRepository.create(createTaskInput);
+    const newTask: Task = this.taskRepository.create({
+      ...createTaskInput,
+      id: uuidv4(), // UUID oluşturup atama yapılıyor
+    });
+
     return this.taskRepository.save(newTask);
   }
 

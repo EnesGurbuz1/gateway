@@ -17,9 +17,8 @@ export class TasksResolver {
   constructor(private readonly tasksService: TasksService) {}
 
   @Mutation(() => Task)
-  createTask(
-    @Args('createTaskInput') createTaskInput: CreateTaskInput,
-  ) {
+  @Mutation(() => Task)
+  async createTask(@Args('createTaskInput') createTaskInput: CreateTaskInput): Promise<Task> {
     return this.tasksService.create(createTaskInput);
   }
 

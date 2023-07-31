@@ -4,10 +4,6 @@ import { Column, PrimaryGeneratedColumn } from 'typeorm';
 @InputType()
 export class CreateProjectInput {
 
-  @PrimaryGeneratedColumn('uuid')
-  @Field()
-  id: string;
-
   @Column()
   @Field()
   title: string;

@@ -7,6 +7,7 @@ import { UpdateProjectInput } from './dto/update-project.input';
 import { Project } from './entities/project.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
+import { v4 as uuidv4 } from 'uuid';
 
 @Injectable()
 export class ProjectsService {
@@ -17,11 +18,11 @@ export class ProjectsService {
 
   //CREATE
   async create(createProjectInput: CreateProjectInput): Promise<Project> {
-    const existingProject = await this.projectRepository.findOne({ where: { id: createProjectInput.id } });
-    if (existingProject) {
-      throw new Error('Aynı ID ile başka bir proje zaten mevcut.');
-    }
-    const newProject = this.projectRepository.create(createProjectInput);
+    const newProject: Project = this.projectRepository.create({
+      ...createProjectInput,
+      id: uuidv4(), // UUID oluşturup atama yapılıyor
+    });
+
     return this.projectRepository.save(newProject);
   }
 
