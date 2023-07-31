@@ -1,7 +1,8 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { User } from './user.entity';
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm';
+import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+@Directive('@key(fields: "id")')
+@Directive('@shareable') 
 @Entity()
 @ObjectType()
 export class Project {
@@ -17,10 +18,4 @@ export class Project {
   @Column()
   @Field()
   creator_id: string;
-
-
-  // @Column()
-  // @Field(() => User)
-  // user?: User;
-  
 }

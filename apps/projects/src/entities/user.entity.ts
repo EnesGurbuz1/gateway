@@ -3,12 +3,21 @@ import { Project } from './project.entity';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Directive('@key(fields: "id")')
+@Directive('@key(fields: "id")') 
+@Directive('@shareable')
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => ID)
+  @Field(() => ID) 
   id: string;
+
+  @Column()
+  @Field()
+  name: string;
+  
+  @Column()
+  @Field()
+  email: string;
 
   @Column()
   @Field(() => [Project])

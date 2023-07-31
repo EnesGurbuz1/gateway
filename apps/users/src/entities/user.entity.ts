@@ -2,11 +2,13 @@ import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Directive('@key(fields: "id")')
+@Directive('@key(fields: "id")' )
+@Directive('@shareable') 
+
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  @Field(() => ID)
+  @Field(() => ID) 
   id: string;
 
   @Column()
