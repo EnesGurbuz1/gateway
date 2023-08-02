@@ -1,7 +1,9 @@
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, ID, Directive } from '@nestjs/graphql';
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
+@Directive('@key(fields: "id")')
+@Directive('@shareable') 
 @ObjectType()
 export class Task {
 
