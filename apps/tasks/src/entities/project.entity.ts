@@ -12,14 +12,6 @@ export class Project {
   id: string;
 
   @Column()
-  @Field()
-  title: string;
-
-  @Column()
-  @Field()
-  creator_id: string;
-
-  @Column()
   @Field(() => [Task])
   tasks: Task[];
 }

@@ -12,14 +12,6 @@ export class User {
   id: string;
 
   @Column()
-  @Field()
-  name: string;
-
-  @Column()
-  @Field()
-  email: string;
-
-  @Column()
   @Field(() => [Task])
   tasks: Task[];
 }
