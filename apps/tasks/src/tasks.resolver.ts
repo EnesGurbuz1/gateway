@@ -46,7 +46,7 @@ export class TasksResolver {
 
   @ResolveField(() => User)
   user(@Parent() task: Task): any {
-    return { __typename: 'User', id: task.project_id };
+    return { __typename: 'User', id: task.creator_id };
   }
 
   @ResolveField(() => Project)
