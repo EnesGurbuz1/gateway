@@ -11,7 +11,7 @@ export class Task {
 
   @Column()
   @Field()
-  title: string;
+  root_id: string;
 
   @Column()
   @Field()
@@ -20,4 +20,24 @@ export class Task {
   @Column()
   @Field()
   project_id: string;
+
+  @Column()
+  @Field()
+  title: string;
+
+  @Column()
+  @Field()
+  description: string;
+
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @Field()
+  created_at: Date;
+
+  @Column({ type: 'datetime', nullable: true})
+  @Field({ nullable: true })
+  deadline: Date;
+
+  @Column()
+  @Field()
+  status: string;
 }

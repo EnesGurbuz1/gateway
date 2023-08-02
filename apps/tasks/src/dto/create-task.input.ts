@@ -1,4 +1,4 @@
-import { InputType, ID, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 import { Column } from 'typeorm';
 
 @InputType()

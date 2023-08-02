@@ -13,9 +13,29 @@ export class Project {
 
   @Column()
   @Field()
+  creator_id: string;
+
+  @Column()
+  @Field()
+  root_id: string;
+
+  @Column()
+  @Field()
   title: string;
 
   @Column()
   @Field()
-  creator_id: string;
+  description: string;
+
+  @Column({ type: 'datetime', nullable: true})
+  @Field({ nullable: true })
+  start_date: Date;
+
+  @Column({ type: 'datetime', nullable: true})
+  @Field({ nullable: true })
+  end_date: Date;
+
+  @Column({ type: 'datetime', default: () => 'CURRENT_TIMESTAMP' })
+  @Field()
+  created_at: Date;
 }

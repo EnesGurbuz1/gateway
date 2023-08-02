@@ -13,9 +13,21 @@ export class User {
 
   @Column()
   @Field()
-  name: string;
+  firstname: string;
+
+  @Column()
+  @Field()  
+  lastname: string;
+
+  @Column()
+  @Field()
+  username: string;
 
   @Column()
   @Field()
   email: string;
+
+  @Column()
+  @Field()
+  password: string;
 }

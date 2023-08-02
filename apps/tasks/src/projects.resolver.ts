@@ -14,18 +14,18 @@ export class ProjectsResolver {
       // Kullanıcının tasklarını almak için hizmeti çağırma işlemi
       const projectTasks: Task[] = await this.tasksService.forProject(id);
 
-      // Hata durumunda uygun işlemler yapma
-      if (!projectTasks || projectTasks.length === 0) {
-        throw new Error('Pojenin taskları bulunamadı.');
-      }
+     // Eğer proje altında görev yoksa, null değeri döndürün
+     if (!projectTasks || projectTasks.length === 0) {
+      return null;
+    }
 
-      return projectTasks;
-    } catch (error) {
-      // Hata yönetimi: Hataları uygun bir şekilde ele almak
-      console.error('Task sorgularken bir hata oluştu:', error);
-      throw new Error(
-        'Task sorgulanırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
-      );
+    return projectTasks;
+  } catch (error) {
+    // Hata yönetimi: Hataları uygun bir şekilde ele almak
+    console.error('Task sorgularken bir hata oluştu:', error);
+    throw new Error(
+      'Task sorgulanırken bir hata oluştu. Lütfen daha sonra tekrar deneyin.',
+    );
     }
   }
 }
